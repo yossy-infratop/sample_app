@@ -5,12 +5,12 @@ class TodolistsController < ApplicationController
   end
 
   def create
-    # 1.データを禁忌登録するためのインスタンス作成
-    list = List.new(list_params)
-    # 2.データをデータベースに保存するためのsaveメソッド
-    list.save
-    # 3.詳細画面へリダイレクト
-    redirect_to todolist_path(list.id)
+    @list = List.new(list_params)
+    if @list.save
+      redirect_to todolist_path(@list.id)
+    else
+      render :new
+    end
   end
 
   #投稿の一覧画面を作成
@@ -33,6 +33,13 @@ class TodolistsController < ApplicationController
     list = List.find(params[:id])
     list.update(list_params)
     redirect_to todolist_path(list.id)
+  end
+
+  #投稿したデータを削除
+  def destroy
+    list = List.find(params[:id]) # データ(レコード)を1件取得
+    list.destroy # データ(レコード)を削除
+    redirect_to todolists_path # 投稿一覧画面へリダイレクト
   end
 
   #ここから下はcontrollerの中でしか呼び出されない(アクションとして認識されない)
