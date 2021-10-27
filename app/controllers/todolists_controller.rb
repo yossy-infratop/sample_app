@@ -42,7 +42,7 @@ class TodolistsController < ApplicationController
     #params.:Railsで送られてきた値を受け取るためのメソッド
     #require:データのオブジェクト名(例:list)を指定
     #permit:キー(例:title, :body)を指定
-    params.require(:list).permit(:title, :body)
+    params.require(:list).permit(:title, :body, :image)
   end
 
 end
