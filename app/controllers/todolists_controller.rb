@@ -9,8 +9,17 @@ class TodolistsController < ApplicationController
     list = List.new(list_params)
     # 2.データをデータベースに保存するためのsaveメソッド
     list.save
-    # 3.トップ画面へリダイレクト
-    redirect_to '/top'
+    # 3.詳細画面へリダイレクト
+    redirect_to todolist_path(list.id)
+  end
+
+  #投稿の一覧画面を作成
+  def index
+    @lists = List.all
+  end
+
+  def show
+    @list = List.find(params[:id])
   end
 
   #ここから下はcontrollerの中でしか呼び出されない(アクションとして認識されない)
