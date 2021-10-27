@@ -18,8 +18,21 @@ class TodolistsController < ApplicationController
     @lists = List.all
   end
 
+  #投稿の中身を表示
   def show
     @list = List.find(params[:id])
+  end
+
+  #投稿を編集
+  def edit
+    @list = List.find(params[:id])
+  end
+
+  #編集内容を送信して保存
+  def update
+    list = List.find(params[:id])
+    list.update(list_params)
+    redirect_to todolist_path(list.id)
   end
 
   #ここから下はcontrollerの中でしか呼び出されない(アクションとして認識されない)
